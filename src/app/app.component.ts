@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
+import {MarkerService} from "./services/marker-service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [MarkerService]
 })
 export class AppComponent {
   // Start Postition
@@ -14,28 +16,10 @@ export class AppComponent {
   markerLat: number;
   markerLng: number;
   markerDraggable: string;
-  markers: Marker[] = [
-    {
-      name: 'Uttar Pradesh',
-      lat: 26.8467,
-      lng: 80.9462,
-      draggable: false
-    },
-    {
-      name: 'Punjab',
-      lat: 31.1471,
-      lng: 75.3412,
-      draggable: false
-    },
-    {
-      name: 'Kerala',
-      lat: 10.8505,
-      lng: 76.2711,
-      draggable: false
-    }
-  ];
+  markers: Marker[];
 
-  constructor() {
+  constructor(private _markerService: MarkerService) {
+    this.markers = this._markerService.getMarkers();
   }
 
   clickedMarker(marker: Marker, index: number) {
